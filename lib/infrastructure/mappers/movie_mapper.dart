@@ -7,8 +7,8 @@ class MovieMapper{
     backdropPath: (moviedb.backdropPath != '')
         ? 'https://image.tmdb.org/t/p/w500${moviedb.backdropPath}'
         : 'https://sd.keepcalms.com/i-w600/keep-calm-poster-not-found.jpg',
-    genreIds: moviedb.genreIds,
-    //genreIds: moviedb.genreIds.map((e) => e.toString()).toList(),
+    //genreIds: moviedb.genreIds,
+    genreIds: moviedb.genreIds.map((e) => e.toString()).toList(),
     id: moviedb.id,
     originalLanguage: moviedb.originalLanguage,
     originalTitle: moviedb.originalTitle,

@@ -22,6 +22,12 @@ class _HomeView extends ConsumerStatefulWidget {
 
 class _HomeViewState extends ConsumerState<_HomeView> {
   @override
+  void initState() {
+    super.initState();
+    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
 
@@ -29,7 +35,9 @@ class _HomeViewState extends ConsumerState<_HomeView> {
       itemCount: nowPlayingMovies.length,
       itemBuilder: (context, index) {
         final movie = nowPlayingMovies[index];
-        return ListTile(title: Text(movie.title));
+        return ListTile(
+          title: Text(movie.title),
+          subtitle:Text(movie.overview));
       },
     );
   }

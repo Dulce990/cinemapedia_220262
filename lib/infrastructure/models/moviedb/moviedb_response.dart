@@ -1,7 +1,9 @@
 import 'movie_moviedb.dart';
 
+// Modelo que representa la respuesta de la API de The Movie DB para películas en cartelera
 class MovieDbResponse {
 
+// Constructor de la clase MovieDbResponse
   MovieDbResponse({
     required this.dates,
     required this.page,
@@ -11,12 +13,14 @@ class MovieDbResponse {
 
   });
 
+// Propiedades de la clase MovieDbResponse
   final Dates? dates;
   final int page;
   final List<MovieMovieDB> results;
   final int totalPages;
   final int totalResults;
 
+// Método para crear una instancia de MovieDbResponse a partir de un JSON
   factory MovieDbResponse.fromJson(Map<String, dynamic> json) => MovieDbResponse(
     dates: json["dates"] != null ? Dates.fromJson(json["dates"]) : null,
     page: json["page"],
@@ -25,6 +29,7 @@ class MovieDbResponse {
     totalResults: json["total_results"],
   );
 
+  // Método para convertir una instancia de MovieDbResponse a JSON
   Map<String, dynamic> toJson() => {
     "dates": dates== null ? null: dates!.toJson(),
     "page": page,
@@ -35,20 +40,25 @@ class MovieDbResponse {
 
 }
 
+// Clase que representa las fechas de la respuesta de la API
 class Dates{
+  // Constructor de la clase Dates
   Dates({
     required this.maximum,
     required this.minimum
   });
 
+// Propiedades de la clase Dates
   final DateTime maximum;
   final DateTime minimum;
 
+  // Método para crear una instancia de Dates a partir de un JSON
   factory Dates.fromJson(Map<String, dynamic> json) => Dates(
     maximum: DateTime.parse(json["maximum"]),
     minimum: DateTime.parse(json["minimum"]),
   );
 
+// Método para convertir una instancia de Dates a JSON
   Map<String, dynamic> toJson() => {
     "maximum": "${maximum.year.toString().padLeft(4, '0')}-${maximum.month.toString().padLeft(2, '0')}-${maximum.day.toString().padLeft(2, '0')}",
     "minimum": "${minimum.year.toString().padLeft(4, '0')}-${minimum.month.toString().padLeft(2, '0')}-${minimum.day.toString().padLeft(2, '0')}",

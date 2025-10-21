@@ -1,5 +1,5 @@
 class MovieMovieDB {
-  
+  // Constructor de la clase MovieMovieDB
   MovieMovieDB({
     required this.adult,
     required this.backdropPath,
@@ -16,7 +16,7 @@ class MovieMovieDB {
     required this.voteAverage,
     required this.voteCount,
   });
-
+// Propiedades de la clase MovieMovieDB
   final bool adult;
   final String backdropPath;
   final List<int> genreIds;
@@ -32,6 +32,7 @@ class MovieMovieDB {
   final double voteAverage;
   final int voteCount;
 
+// Método para crear una instancia de MovieMovieDB a partir de un JSON
   factory MovieMovieDB.fromJson(Map<String, dynamic> json) => MovieMovieDB(
     adult: json["adult"] ?? false,
     backdropPath: json["backdrop_path"] ?? '',
@@ -48,6 +49,8 @@ class MovieMovieDB {
     voteAverage: json["vote_average"]?.toDouble(),
     voteCount: json["vote_count"],
   );
+
+// Método para convertir una instancia de MovieMovieDB a JSON
 
   Map<String, dynamic> toJson() => {
     "adult": adult,

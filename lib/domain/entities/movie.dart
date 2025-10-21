@@ -1,5 +1,6 @@
-
 class Movie {
+  // Definición de la entidad Movie con sus propiedades
+
   final bool adult;
   final String backdropPath;
   final List<int> genreIds;
@@ -14,6 +15,8 @@ class Movie {
   final bool video;
   final double voteAverage;
   final int voteCount;
+
+// Constructor de la clase Movie
 
   Movie({
     required this.adult,

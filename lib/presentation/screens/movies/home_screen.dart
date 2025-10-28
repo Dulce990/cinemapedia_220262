@@ -43,7 +43,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
         MovieSlideshow(movies: slideShowMovies),
         MovieHorizontalListview(movies:nowPlayingMovies,
         title: 'En cines',
-        subTitle: 'Miercoles, 22 de Octubre',)
+        subTitle: 'Miercoles, 22 de Octubre',
+         loadNextPage:(){
+          print('Evento lanzado por el listener de Horizontal');
+        }),
+       
       ],
     );
   }

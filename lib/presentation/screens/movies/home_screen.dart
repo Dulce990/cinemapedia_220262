@@ -37,18 +37,56 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideShowProvider);
 
-    return Column(
-      children: [
-        CustomAppbar(),
-        MovieSlideshow(movies: slideShowMovies),
-        MovieHorizontalListview(movies:nowPlayingMovies,
-        title: 'En cines',
-        subTitle: 'Miercoles, 22 de Octubre',
-         loadNextPage:(){
-          print('Evento lanzado por el listener de Horizontal');
-        }),
-       
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          CustomAppbar(),
+          MovieSlideshow(movies: slideShowMovies),
+          MovieHorizontalListview(
+            movies: nowPlayingMovies,
+            title: 'En cines',
+            subTitle: 'Miercoles, 22 de Octubre',
+            loadNextPage: () {
+              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+            },
+          ),
+          MovieHorizontalListview(
+            movies: nowPlayingMovies,
+            title: 'Proximamente',
+            subTitle: 'Noviembre',
+            loadNextPage: () {
+              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+            },
+          ),
+          MovieHorizontalListview(
+            movies: nowPlayingMovies,
+            title: 'Populares',
+            subTitle: 'Miercoles, 22 de Octubre',
+            loadNextPage: () {
+              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+            },
+          ),
+          MovieHorizontalListview(
+            movies: nowPlayingMovies,
+            title: 'Mejor valoradas',
+            subTitle: 'Miercoles, 22 de Octubre',
+            loadNextPage: () {
+              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+            },
+          ),
+          MovieHorizontalListview(
+            movies: nowPlayingMovies,
+            title: 'Cine Méxicano',
+            subTitle: 'Miercoles, 22 de Octubre',
+            loadNextPage: () {
+              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+            },
+          ),
+          const SizedBox(height: 10)
+        ],
+        
+      ),
+      
     );
   }
 }

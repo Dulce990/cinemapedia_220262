@@ -19,10 +19,13 @@ class MoviedbDataSource extends MoviesDatasource {
     ),
   );
 
-// Método para obtener películas en cartelera
+  // Método para obtener películas en cartelera
   @override
   Future<List<Movie>> getNowPlaying({int page = 1}) async {
-    final response = await dio.get('/movie/now_playing');
+    final response = await dio.get(
+      '/movie/now_playing',
+      queryParameters: {'page': page},
+    );
     final movieDBResponse = MovieDbResponse.fromJson(response.data);
 
     // Filtrar y mapear los resultados a la entidad Movie

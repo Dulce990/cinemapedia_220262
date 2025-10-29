@@ -23,25 +23,30 @@ class MovieHorizontalListview extends StatefulWidget {
 }
 
 class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
+final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (widget.loadNextPage == null) return;
+      if (scrollController.position.pixels + 200 >=
+          scrollController.position.maxScrollExtent) {
+        widget.loadNextPage!();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final scrollController = ScrollController();
-
-    @override
-    void initState() {
-      super.initState();
-      scrollController.addListener((){
-        if(widget.loadNextPage == null) return;
-        if(scrollController.position.pixels +200 >= scrollController.position.maxScrollExtent){
-          print('Cargando las siguientes');
-          widget.loadNextPage!();
-        }
-        
-      });
-    }
-
+  
     return SizedBox(
-      height: 350,
+      height: 360,
       child: Column(
         children: [
           if (widget.title != null || widget.subTitle != null)

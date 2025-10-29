@@ -1,29 +1,41 @@
 import 'package:cinemapedia_220262/domain/entities/movie.dart';
 import 'package:cinemapedia_220262/presentation/providers/movies/movies_repository_provider.dart';
-import 'package:flutter_riverpod/legacy.dart';
 
-// StateNotifierProvider para gestionar el estado de las películas en cartelera
-final nowPlayingMoviesProvider =
-    StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
-      final fetchMoreMovies = ref.watch(movieRepositoryProvider).getNowPlaying;
-// Crear una instancia de MoviesNotifier con la función para obtener más películas
-      return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
-    });
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// 🔹 1. Definimos el tipo de función callback
 typedef MovieCallback = Future<List<Movie>> Function({int page});
 
-// StateNotifier para gestionar la lista de películas
-class MoviesNotifier extends StateNotifier<List<Movie>> {
+// 🔹 2. Provider principal
+final nowPlayingMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(
+  MoviesNotifier.new,
+);
+
+// 🔹 3. El Notifier que maneja el estado
+class MoviesNotifier extends Notifier<List<Movie>> {
   int currentPage = 0;
-  MovieCallback fetchMoreMovies;
+  late final MovieCallback fetchMoreMovies;
+  bool isLoading = false;
 
-// Constructor de MoviesNotifier
-  MoviesNotifier({required this.fetchMoreMovies}) : super([]);
+  @override
+  List<Movie> build() {
+    // Obtenemos el repositorio desde el ref
+    final repository = ref.watch(movieRepositoryProvider);
+    fetchMoreMovies = repository.getNowPlaying;
+    return [];
+  }
 
-// Método para cargar la siguiente página de películas
   Future<void> loadNextPage() async {
+    if (isLoading) return;
+    isLoading = true;
+
     currentPage++;
-    final List<Movie> movies = await fetchMoreMovies(page: currentPage);
+    final movies = await fetchMoreMovies(page: currentPage);
+
     state = [...state, ...movies];
+
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    isLoading = false;
   }
 }

@@ -30,11 +30,20 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   void initState() {
     super.initState();
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+    ref.read(popularMoviesProvider.notifier).loadNextPage();
+    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
+    ref.read(mexicanMoviesProvider.notifier).loadNextPage();
+    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+
   }
 
   @override
   Widget build(BuildContext context) {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final popular = ref.watch(popularMoviesProvider);
+    final topRated = ref.watch(topRatedMoviesProvider);
+    final upcomming = ref.watch(upcomingMoviesProvider);
+    final mexicanMovies = ref.watch(mexicanMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideShowProvider);
 
     return SingleChildScrollView(
@@ -51,35 +60,35 @@ class _HomeViewState extends ConsumerState<_HomeView> {
             },
           ),
           MovieHorizontalListview(
-            movies: nowPlayingMovies,
+            movies: upcomming,
             title: 'Proximamente',
             subTitle: 'Noviembre',
             loadNextPage: () {
-              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+              ref.read(upcomingMoviesProvider.notifier).loadNextPage();
             },
           ),
           MovieHorizontalListview(
-            movies: nowPlayingMovies,
+            movies: popular,
             title: 'Populares',
             subTitle: 'Miercoles, 22 de Octubre',
             loadNextPage: () {
-              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+              ref.read(popularMoviesProvider.notifier).loadNextPage();
             },
           ),
           MovieHorizontalListview(
-            movies: nowPlayingMovies,
+            movies: topRated,
             title: 'Mejor valoradas',
             subTitle: 'Miercoles, 22 de Octubre',
             loadNextPage: () {
-              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+              ref.read(topRatedMoviesProvider.notifier).loadNextPage();
             },
           ),
           MovieHorizontalListview(
-            movies: nowPlayingMovies,
+            movies: mexicanMovies,
             title: 'Cine Méxicano',
             subTitle: 'Miercoles, 22 de Octubre',
             loadNextPage: () {
-              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+              ref.read(mexicanMoviesProvider.notifier).loadNextPage();
             },
           ),
           const SizedBox(height: 10)
